@@ -1,11 +1,11 @@
 public class Main {
 
     public static void printYear(int number) {
-        if ((number % 400 == 0) || (number % 4 == 0)) {
+        if (number % 4 == 0 && number % 100 != 0 || number % 400 == 0) {
             System.out.println(number + " год - високосный год");
-        } else if (number % 100 == 0) {
-            System.out.println(number + " год - невисокосный год");
-        } else System.out.println(number + " год не является високосным");
+        } else {
+            System.out.println(number + " год -  невисокосный год");
+        }
     }
 
     public static void checkerDevice(int deviceOS, int deviceYear) {
@@ -18,13 +18,25 @@ public class Main {
         }
     }
 
-    public static void checkerDistance(int distance, int day) {
-        if (distance < 20) {
-            System.out.println("Потребуется дней " + day);
-        } else if ((distance > 20) && (distance < 60)) {
-            System.out.println("Потребуется дней " + (day + 1));
-        } else if ((distance > 60) && (distance < 100)) {
-            System.out.println("Потребуется дней " + (day + 2));
+    public static void calculateDeliveryDays(int distance, int day) {
+        boolean oneDay = distance < 20;
+        boolean twoDay = distance >= 20 && distance < 60;
+        boolean threeDay = distance < 100 && distance >= 60;
+
+        if (oneDay) {
+            day = 1;
+        } else if (twoDay) {
+            day = 2;
+        } else if (threeDay) {
+            day = 3;
+        }
+
+        if (oneDay) {
+            System.out.println("Потребуется дней: " + day);
+        } else if (twoDay) {
+            System.out.println("Потребуется дней: " + day);
+        } else if (threeDay) {
+            System.out.println("Потребуется дней: " + day);
         } else {
             System.out.println("Доставки нет");
         }
@@ -32,7 +44,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Задание № 1");
-        int year = 2024;
+        int year = 1900;
         printYear(year);
         System.out.println();
         System.out.println("Задание № 2");
@@ -43,9 +55,7 @@ public class Main {
         System.out.println("Задание № 3");
         int deliveryDistance = 95;
         int deliveryDay = 1;
-        checkerDistance(deliveryDistance, deliveryDay);
-
-
+        calculateDeliveryDays(deliveryDistance, deliveryDay);
     }
 }
 
